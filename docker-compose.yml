@@ -1,0 +1,99 @@
+version: "2.3"
+services:
+  rp1:
+    hostname: rp1
+    image: ${VIZIX_BRIDGES_IMAGE}
+    environment:
+      VIZIX_ESPER: 'no'
+      VIZIX_BRIDGE_TYPE: rulesprocessor
+      VIZIX_KAFKA_CODE: RulesProcessor
+      VIZIX_KAFKA_SERVERS: $KAFKA_SERVERS
+    volumes:
+      - ./volume/vizix/rp1:/var/vizix
+
+  rp2:
+    hostname: rp2
+    image: ${VIZIX_BRIDGES_IMAGE}
+    environment:
+      VIZIX_ESPER: 'no'
+      VIZIX_BRIDGE_TYPE: rulesprocessor
+      VIZIX_KAFKA_CODE: RulesProcessor
+      VIZIX_KAFKA_SERVERS: $KAFKA_SERVERS
+    volumes:
+      - ./volume/vizix/rp2:/var/vizix
+
+  rp3:
+    hostname: rp3
+    image: ${VIZIX_BRIDGES_IMAGE}
+    environment:
+      VIZIX_ESPER: 'no'
+      VIZIX_BRIDGE_TYPE: rulesprocessor
+      VIZIX_KAFKA_CODE: RulesProcessor
+      VIZIX_KAFKA_SERVERS: $KAFKA_SERVERS
+    volumes:
+      - ./volume/vizix/rp3:/var/vizix
+
+  rp4:
+    hostname: rp4
+    image: ${VIZIX_BRIDGES_IMAGE}
+    environment:
+      VIZIX_ESPER: 'no'
+      VIZIX_BRIDGE_TYPE: rulesprocessor
+      VIZIX_KAFKA_CODE: RulesProcessor
+      VIZIX_KAFKA_SERVERS: $KAFKA_SERVERS
+    volumes:
+      - ./volume/vizix/rp4:/var/vizix
+
+  mi1:
+    image: ${VIZIX_BRIDGES_IMAGE}
+    environment:
+      VIZIX_CORE_CODE: MongoInjector
+      VIZIX_BRIDGE_TYPE: mongoingestor
+      VIZIX_KAFKA_SERVERS: $KAFKA_SERVERS
+    volumes:
+      - ./volume/vizix/mi1:/var/vizix
+
+  mi2:
+    image: ${VIZIX_BRIDGES_IMAGE}
+    environment:
+      VIZIX_CORE_CODE: MongoInjector
+      VIZIX_BRIDGE_TYPE: mongoingestor
+      VIZIX_KAFKA_SERVERS: $KAFKA_SERVERS
+    volumes:
+      - ./volume/vizix/mi2:/var/vizix
+
+  mi3:
+    image: ${VIZIX_BRIDGES_IMAGE}
+    environment:
+      VIZIX_CORE_CODE: MongoInjector
+      VIZIX_BRIDGE_TYPE: mongoingestor
+      VIZIX_KAFKA_SERVERS: $KAFKA_SERVERS
+    volumes:
+      - ./volume/vizix/mi3:/var/vizix
+
+  mi4:
+    image: ${VIZIX_BRIDGES_IMAGE}
+    environment:
+      VIZIX_CORE_CODE: MongoInjector
+      VIZIX_BRIDGE_TYPE: mongoingestor
+      VIZIX_KAFKA_SERVERS: $KAFKA_SERVERS
+    volumes:
+      - ./volume/vizix/mi4:/var/vizix
+
+
+
+  datadog:
+    restart: always
+    image: datadog/docker-dd-agent:12.4.5190
+    hostname: datadog
+    container_name: datadog
+    environment:
+      API_KEY: 5dfd1422b74a1c79b13980c621df73af
+      SD_BACKEND: docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+      - /opt/vizix/dd/:/conf.d/d
+
+
