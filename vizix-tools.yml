@@ -1,0 +1,66 @@
+
+version: "2.3"
+services:
+
+  vizix-tools:
+    image: mojix/vizix-tools:develop
+    command: configure
+    environment:
+
+    #Installation Variables
+      VIZIX_POPDB: "false"
+      VIZIX_POPDB_OPTION: platform-demo-mojix
+      VIZIX_POPDB_TENANT_CODE: tenant
+      VIZIX_POPDB_CREATE_TENANT: "false"
+      VIZIX_POPDB_CLEAN: "false"
+
+    #Kafka Enabled
+      VIZIX_KAFKA_CREATE_TOPICS: "true"
+      VIZIX_KAFKA_LOAD_CACHE: "true"
+      VIZIX_KAFKA_ENABLED: "true"
+      VIZIX_KAFKA_ZOOKEEPER: $ZOOKEEPER_SERVERS
+      VIZIX_KAFKA_SERVERS: $KAFKA_SERVERS
+ 
+    #############################################
+    #         ENV Variables to Publish Kafka Site Config .      #
+    #############################################
+
+    #MONGODB Parameters
+      VIZIX_MONGO_PRIMARY: 10.0.132.245:27017
+      VIZIX_MONGO_DB: ${VIZIX_MONGO_DB}
+      VIZIX_MONGO_USERNAME: ${VIZIX_MONGO_USERNAME}
+      VIZIX_MONGO_PASSWORD: ${VIZIX_MONGO_PASSWORD}
+      VIZIX_MONGO_AUTHDB: admin
+
+    #MONGODB Optional Parameters
+#      VIZIX_MONGO_SECONDARY:
+#      VIZIX_MONGO_REPLICASET:
+#      VIZIX_MONGO_SSL: false
+#      VIZIX_MONGO_CONTROL_READPREFERENCE: primary
+#      VIZIX_MONGO_REPORTS_READPREFERENCE: secondary
+#      VIZIX_MONGO_SHARDING: false
+#      VIZIX_MONGO_CONNECTION_TIMEOUT: 0
+#      VIZIX_MONGO_MAX_POOL_SIZE: 0
+
+    #MQTT Broker Parameters
+      VIZIX_MQTT_HOST: mosquitto
+      VIZIX_MQTT_PORT: 1883
+      VIZIX_MQTT_CONNECTION_WAIT: "false"
+
+    #SQLDB Parameters
+      VIZIX_DB_DRIVER: com.mysql.jdbc.Driver
+      VIZIX_DB_DIALECT: org.hibernate.dialect.MySQLDialect
+      VIZIX_DB_DATABASE: ${VIZIX_DB_DATABASE}
+      VIZIX_DB_PASSWORD: ${VIZIX_DB_PASSWORD}
+      VIZIX_AUTHENTICATION_MODE: nativeAuthentication
+      VIZIX_CONNECTION_URL: jdbc:mysql://10.0.132.245:3306/riot_main?useSSL=false
+
+    #HAZELCAST Parameters
+      VIZIX_HAZELCAST_DISTRIBUTED_ENABLE: "true"
+      VIZIX_HAZELCAST_NATIVE_CLIENT_ADDRESS: hazelcast
+
+    #Services Information
+      VIZIX_API_HOST: 10.0.147.216
+      VIZIX_API_PORT: 8080
+      VIZIX_API_PATH: /riot-core-services
+      VIZIX_API_KEY: 7B4BCCDC
